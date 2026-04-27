@@ -1,3 +1,23 @@
+server:
+  port: 8082
 spring:
   application:
     name: void-post
+  datasource:
+    url: jdbc:postgresql://localhost:5432/void
+    default_schema: post
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+  logging:
+    level:
+      org:
+        hibernate:
+          SQL: DEBUG
