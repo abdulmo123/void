@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "users", schema = "usr")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,5 +31,5 @@ public class User {
 
     @Basic
     @Column
-    private LocalDateTime createdAt;
+    private LocalDateTime crtTs;
 }
