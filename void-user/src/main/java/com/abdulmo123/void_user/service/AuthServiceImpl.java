@@ -1,8 +1,8 @@
 package com.abdulmo123.void_user.service;
 
-import com.abdulmo123.void_user.dto.AuthRequest;
+import com.abdulmo123.void_user.dto.LoginRequest;
 import com.abdulmo123.void_user.dto.AuthResponse;
-import com.abdulmo123.void_user.dto.SignUpRequest;
+import com.abdulmo123.void_user.dto.RegisterRequest;
 import com.abdulmo123.void_user.enums.Role;
 import com.abdulmo123.void_user.model.User;
 import com.abdulmo123.void_user.repository.UserRepository;
@@ -23,13 +23,13 @@ public class AuthServiceImpl implements AuthService {
     private final AuthenticationManager authenticationManager;
 
     @Override
-    public AuthResponse signup(SignUpRequest signUpRequest) {
+    public AuthResponse signup(RegisterRequest registerRequest) {
         var user = User.builder()
-                .firstName(signUpRequest.getFirstName())
-                .lastName(signUpRequest.getLastName())
-                .username(signUpRequest.getUsername())
-                .email(signUpRequest.getEmail())
-                .password(passwordEncoder.encode(signUpRequest.getPassword()))
+                .firstName(registerRequest.getFirstName())
+                .lastName(registerRequest.getLastName())
+                .username(registerRequest.getUsername())
+                .email(registerRequest.getEmail())
+                .password(passwordEncoder.encode(registerRequest.getPassword()))
                 .role(Role.USER)
                 .build();
 
@@ -42,15 +42,15 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public AuthResponse authenticate(AuthRequest signUpRequest) {
+    public AuthResponse authenticate(LoginRequest loginRequest) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        signUpRequest.getUsername(),
-                        signUpRequest.getPassword()
+                        loginRequest.getUsername(),
+                        loginRequest.getPassword()
                 )
         );
 
-        var user = userRepository.findByUsernameOrEmail(signUpRequest.getUsername())
+        var user = userRepository.findByUsernameOrEmail(loginRequest.getUsername())
                 .orElseThrow();
         var jwtToken = jwtUtil.generateToken(user);
         return AuthResponse.builder()
