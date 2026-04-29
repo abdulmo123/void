@@ -1,7 +1,9 @@
 package com.abdulmo123.void_user.model;
 
+import com.abdulmo123.void_user.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,10 +18,19 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class User implements UserDetails {
     @Id
     @GeneratedValue
     private Long id;
+
+    @Basic
+    @Column
+    private String firstName;
+
+    @Basic
+    @Column
+    private String lastName;
 
     @Basic
     @Column(unique = true, nullable = false)
@@ -32,6 +43,9 @@ public class User implements UserDetails {
     @Basic
     @Column(nullable = false)
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Basic
     @Column
