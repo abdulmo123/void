@@ -33,7 +33,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
      * from the Authorization header before passing the request down the filter chain.
      *
      * Extracts the Bearer token from the Authorization header, derives the user's
-     * email from it, and loads the corresponding user from the database. If the token
+     * username from it, and loads the corresponding user from the database. If the token
      * is valid and the user is not already authenticated, sets the authentication
      * in the SecurityContext so Spring Security treats the request as authenticated.
      *
@@ -52,16 +52,16 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
-        final String email;
+        final String username;
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
         jwt = authHeader.substring(7);
-        email = jwtUtil.extractUsername(jwt);
-        if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(email);
+        username = jwtUtil.extractUsername(jwt);
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
             if (jwtUtil.isTokenValid(jwt, userDetails)) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails,
