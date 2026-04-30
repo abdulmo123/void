@@ -1,17 +1,20 @@
 server:
   port: 8081
+app:
+  url: http://localhost:8081
+  dummy-email: abdullah2224@gmail.com
 spring:
   application:
     name: void-user
   datasource:
-    url: jdbc:postgresql://localhost:5432/void
+    url: ${DB_URL}
     default_schema: usr
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
@@ -21,3 +24,14 @@ spring:
       org:
         hibernate:
           SQL: DEBUG
+  mail:
+    host: ${SMTP_HOST}
+    port: ${SMTP_PORT}
+    username: ${SMTP_USERNAME}
+    password: ${SMTP_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
