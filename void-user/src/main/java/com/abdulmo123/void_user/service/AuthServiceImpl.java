@@ -21,10 +21,11 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
     private final AuthenticationManager authenticationManager;
+    private final EmailService emailService;
 
     @Override
     public AuthResponse signup(RegisterRequest registerRequest) {
-        var user = User.builder()
+        User user = User.builder()
                 .firstName(registerRequest.getFirstName())
                 .lastName(registerRequest.getLastName())
                 .username(registerRequest.getUsername())
@@ -36,6 +37,8 @@ public class AuthServiceImpl implements AuthService {
         userRepository.save(user);
 
         var jwtToken = jwtUtil.generateToken(user);
+        emailService.sendWelcomeEmail(user);
+
         return AuthResponse.builder()
                 .token(jwtToken)
                 .build();
