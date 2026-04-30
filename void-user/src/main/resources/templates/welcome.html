@@ -1,275 +1,150 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Welcome to Void</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&display=swap');
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-          background-color: #0a0a0a;
-          font-family: 'DM Mono', monospace;
-          color: #e8e8e8;
-          padding: 40px 16px;
-        }
-
-        .wrapper {
-          max-width: 560px;
-          margin: 0 auto;
-        }
-
-        /* Header */
-        .header {
-          border-bottom: 1px solid #222;
-          padding-bottom: 28px;
-          margin-bottom: 40px;
-          display: flex;
-          align-items: center;
-          gap: 10px;
-        }
-
-        .logo {
-          font-family: 'DM Serif Display', serif;
-          font-size: 28px;
-          letter-spacing: -0.5px;
-          color: #ffffff;
-        }
-
-        .logo span {
-          color: #555;
-        }
-
-        /* Hero */
-        .hero {
-          margin-bottom: 40px;
-        }
-
-        .hero-label {
-          font-size: 10px;
-          letter-spacing: 3px;
-          text-transform: uppercase;
-          color: #555;
-          margin-bottom: 16px;
-        }
-
-        .hero-title {
-          font-family: 'DM Serif Display', serif;
-          font-size: 38px;
-          line-height: 1.15;
-          color: #ffffff;
-          margin-bottom: 20px;
-        }
-
-        .hero-title em {
-          font-style: italic;
-          color: #888;
-        }
-
-        .hero-body {
-          font-size: 13px;
-          line-height: 1.8;
-          color: #888;
-          max-width: 460px;
-        }
-
-        /* Divider */
-        .divider {
-          border: none;
-          border-top: 1px solid #1a1a1a;
-          margin: 36px 0;
-        }
-
-        /* User info block */
-        .info-block {
-          background: #111;
-          border: 1px solid #1e1e1e;
-          border-radius: 4px;
-          padding: 20px 24px;
-          margin-bottom: 36px;
-        }
-
-        .info-row {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 10px 0;
-          border-bottom: 1px solid #1a1a1a;
-          font-size: 12px;
-        }
-
-        .info-row:last-child {
-          border-bottom: none;
-        }
-
-        .info-label {
-          color: #444;
-          text-transform: uppercase;
-          letter-spacing: 1.5px;
-          font-size: 10px;
-        }
-
-        .info-value {
-          color: #ccc;
-        }
-
-        /* CTA Button */
-        .cta-wrap {
-          margin-bottom: 40px;
-        }
-
-        .cta-btn {
-          display: inline-block;
-          background: #ffffff;
-          color: #0a0a0a;
-          font-family: 'DM Mono', monospace;
-          font-size: 12px;
-          letter-spacing: 2px;
-          text-transform: uppercase;
-          text-decoration: none;
-          padding: 14px 32px;
-          border-radius: 2px;
-        }
-
-        /* What's next */
-        .next-section {
-          margin-bottom: 40px;
-        }
-
-        .next-label {
-          font-size: 10px;
-          letter-spacing: 3px;
-          text-transform: uppercase;
-          color: #333;
-          margin-bottom: 20px;
-        }
-
-        .next-item {
-          display: flex;
-          gap: 16px;
-          align-items: flex-start;
-          margin-bottom: 20px;
-        }
-
-        .next-number {
-          font-size: 10px;
-          color: #333;
-          padding-top: 2px;
-          min-width: 20px;
-        }
-
-        .next-text {
-          font-size: 12px;
-          color: #666;
-          line-height: 1.7;
-        }
-
-        .next-text strong {
-          color: #aaa;
-          display: block;
-          margin-bottom: 2px;
-        }
-
-        /* Footer */
-        .footer {
-          border-top: 1px solid #1a1a1a;
-          padding-top: 28px;
-          font-size: 11px;
-          color: #333;
-          line-height: 1.8;
-        }
-
-        .footer a {
-          color: #444;
-          text-decoration: none;
-        }
-    </style>
 </head>
-<body>
-<div class="wrapper">
+<body style="margin:0;padding:0;background-color:#f5f4f0;font-family:Georgia,serif;">
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f5f4f0;">
+    <tr>
+        <td align="center" style="padding:40px 16px;">
+            <table width="560" cellpadding="0" cellspacing="0" border="0" style="max-width:560px;width:100%;">
 
-    <!-- Header -->
-    <div class="header">
-        <div class="logo">void<span>.</span></div>
-    </div>
+                <!-- Logo -->
+                <tr>
+                    <td style="padding-bottom:28px;border-bottom:1px solid #dddcda;">
+                        <span style="font-family:Georgia,serif;font-size:26px;color:#0a0a0a;letter-spacing:-0.5px;">void</span><span style="color:#aaaaaa;font-size:26px;">.</span>
+                    </td>
+                </tr>
 
-    <!-- Hero -->
-    <div class="hero">
-        <p class="hero-label">Welcome aboard</p>
-        <h1 class="hero-title">
-            Good to have you,<br/>
-            <em th:text="${username}">username</em>.
-        </h1>
-        <p class="hero-body">
-            Your account is ready. You can now write, publish, and share your thoughts into the void.
-            No algorithm. No noise. Just your words.
-        </p>
-    </div>
+                <!-- Spacer -->
+                <tr><td style="height:36px;"></td></tr>
 
-    <hr class="divider"/>
+                <!-- Hero -->
+                <tr>
+                    <td>
+                        <p style="font-family:Courier New,monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#aaaaaa;margin:0 0 16px 0;">Welcome aboard</p>
+                        <h1 style="font-family:Georgia,serif;font-size:36px;color:#0a0a0a;margin:0 0 20px 0;line-height:1.2;">
+                            Good to have you,<br/>
+                            <span style="color:#555555;font-style:italic;" th:text="${username}">username</span>.
+                        </h1>
+                        <p style="font-family:Courier New,monospace;font-size:13px;color:#666666;line-height:1.8;margin:0;">
+                            Your account is ready. You can now write, publish, and share your thoughts into the void. No algorithm. No noise. Just your words.
+                        </p>
+                    </td>
+                </tr>
 
-    <!-- Account info -->
-    <div class="info-block">
-        <div class="info-row">
-            <span class="info-label">Username</span>
-            <span class="info-value" th:text="${username}">username</span>
-        </div>
-        <div class="info-row">
-            <span class="info-label">Email</span>
-            <span class="info-value" th:text="${email}">email@example.com</span>
-        </div>
-        <div class="info-row">
-            <span class="info-label">Joined</span>
-            <span class="info-value" th:text="${joinedDate}">April 29, 2026</span>
-        </div>
-    </div>
+                <!-- Divider -->
+                <tr><td style="height:36px;border-bottom:1px solid #dddcda;"></td></tr>
+                <tr><td style="height:36px;"></td></tr>
 
-    <!-- CTA -->
-    <div class="cta-wrap">
-        <a th:href="${appUrl}" class="cta-btn">Start Writing</a>
-    </div>
+                <!-- Info block -->
+                <tr>
+                    <td style="background-color:#eceae4;border:1px solid #dddcda;border-radius:4px;padding:0;">
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                                <td style="padding:16px 24px;border-bottom:1px solid #dddcda;">
+                                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                        <tr>
+                                            <td style="font-family:Courier New,monospace;font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:#aaaaaa;">Username</td>
+                                            <td align="right" style="font-family:Courier New,monospace;font-size:12px;color:#0a0a0a;" th:text="${username}">username</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding:16px 24px;border-bottom:1px solid #dddcda;">
+                                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                        <tr>
+                                            <td style="font-family:Courier New,monospace;font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:#aaaaaa;">Email</td>
+                                            <td align="right" style="font-family:Courier New,monospace;font-size:12px;color:#0a0a0a;" th:text="${email}">email@example.com</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding:16px 24px;">
+                                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                        <tr>
+                                            <td style="font-family:Courier New,monospace;font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:#aaaaaa;">Joined</td>
+                                            <td align="right" style="font-family:Courier New,monospace;font-size:12px;color:#0a0a0a;" th:text="${joinedDate}">April 29, 2026</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
 
-    <hr class="divider"/>
+                <!-- Spacer -->
+                <tr><td style="height:36px;"></td></tr>
 
-    <!-- What's next -->
-    <div class="next-section">
-        <p class="next-label">What's next</p>
+                <!-- CTA Button -->
+                <tr>
+                    <td>
+                        <a th:href="${appUrl}" style="display:inline-block;background-color:#0a0a0a;color:#f5f4f0;font-family:Courier New,monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;padding:14px 32px;border-radius:2px;">Start Writing</a>
+                    </td>
+                </tr>
 
-        <div class="next-item">
-            <span class="next-number">01</span>
-            <div class="next-text">
-                <strong>Write your first post</strong>
-                Share something you've been thinking about. It doesn't have to be perfect.
-            </div>
-        </div>
+                <!-- Divider -->
+                <tr><td style="height:36px;border-bottom:1px solid #dddcda;"></td></tr>
+                <tr><td style="height:36px;"></td></tr>
 
-        <div class="next-item">
-            <span class="next-number">02</span>
-            <div class="next-text">
-                <strong>Set up your profile</strong>
-                Add a bio and let people know who you are.
-            </div>
-        </div>
+                <!-- What's next -->
+                <tr>
+                    <td>
+                        <p style="font-family:Courier New,monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#aaaaaa;margin:0 0 24px 0;">What's next</p>
 
-        <div class="next-item">
-            <span class="next-number">03</span>
-            <div class="next-text">
-                <strong>Explore other posts</strong>
-                Read what others are putting into the void.
-            </div>
-        </div>
-    </div>
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:20px;">
+                            <tr>
+                                <td width="28" style="font-family:Courier New,monospace;font-size:10px;color:#cccccc;vertical-align:top;padding-top:2px;">01</td>
+                                <td>
+                                    <p style="font-family:Courier New,monospace;font-size:12px;color:#0a0a0a;margin:0 0 4px 0;font-weight:bold;">Write your first post</p>
+                                    <p style="font-family:Courier New,monospace;font-size:12px;color:#888888;margin:0;line-height:1.7;">Share something you've been thinking about. It doesn't have to be perfect.</p>
+                                </td>
+                            </tr>
+                        </table>
 
-    <!-- Footer -->
-    <div class="footer">
-        <p>You're receiving this because you signed up for Void.</p>
-        <p>If this wasn't you, you can safely ignore this email.</p>
-        <br/>
-        <p>&copy; 2026 Void &mdash; <a th:href="${appUrl}">void.app</a></p>
-    </div>
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:20px;">
+                            <tr>
+                                <td width="28" style="font-family:Courier New,monospace;font-size:10px;color:#cccccc;vertical-align:top;padding-top:2px;">02</td>
+                                <td>
+                                    <p style="font-family:Courier New,monospace;font-size:12px;color:#0a0a0a;margin:0 0 4px 0;font-weight:bold;">Set up your profile</p>
+                                    <p style="font-family:Courier New,monospace;font-size:12px;color:#888888;margin:0;line-height:1.7;">Add a bio and let people know who you are.</p>
+                                </td>
+                            </tr>
+                        </table>
 
-</div>
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                                <td width="28" style="font-family:Courier New,monospace;font-size:10px;color:#cccccc;vertical-align:top;padding-top:2px;">03</td>
+                                <td>
+                                    <p style="font-family:Courier New,monospace;font-size:12px;color:#0a0a0a;margin:0 0 4px 0;font-weight:bold;">Explore other posts</p>
+                                    <p style="font-family:Courier New,monospace;font-size:12px;color:#888888;margin:0;line-height:1.7;">Read what others are putting into the void.</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <!-- Divider -->
+                <tr><td style="height:36px;border-bottom:1px solid #dddcda;"></td></tr>
+                <tr><td style="height:28px;"></td></tr>
+
+                <!-- Footer -->
+                <tr>
+                    <td style="font-family:Courier New,monospace;font-size:11px;color:#aaaaaa;line-height:1.8;">
+                        <p style="margin:0;">You're receiving this because you signed up for Void.</p>
+                        <p style="margin:0;">If this wasn't you, you can safely ignore this email.</p>
+                        <br/>
+                        <p style="margin:0;">&copy; 2026 Void &mdash; <a th:href="${appUrl}" style="color:#888888;text-decoration:none;">void.app</a></p>
+                    </td>
+                </tr>
+
+            </table>
+        </td>
+    </tr>
+</table>
 </body>
 </html>
