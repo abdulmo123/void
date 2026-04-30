@@ -1,5 +1,8 @@
 server:
   port: 8082
+user:
+  service:
+    url: http://localhost:8081
 spring:
   application:
     name: void-post
@@ -11,7 +14,7 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
