@@ -34,6 +34,14 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.CREATED).body(postService.createPost(request, authHeader));
     }
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity<PostResponseDto> updatePost(
+            @PathVariable("id") Long id,
+            @RequestBody CreatePostDto request,
+            @RequestHeader("Authorization") String authHeader) {
+                return ResponseEntity.status(HttpStatus.OK).body(postService.updatePost(id, request, authHeader));
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<PostResponseDto> deletePost(
             @PathVariable("id") Long id,

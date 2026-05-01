@@ -13,5 +13,7 @@ public interface PostService {
 
     PostResponseDto createPost(CreatePostDto request, String authHeader);
 
+    PostResponseDto updatePost(Long id, CreatePostDto request, String authHeader);
+
     PostResponseDto deletePost(Long id, String authHeader);
 }

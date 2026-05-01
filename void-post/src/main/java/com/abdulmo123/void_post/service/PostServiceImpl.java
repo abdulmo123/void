@@ -3,6 +3,7 @@ package com.abdulmo123.void_post.service;
 import com.abdulmo123.void_post.client.UserServiceClient;
 import com.abdulmo123.void_post.dto.CreatePostDto;
 import com.abdulmo123.void_post.dto.PostResponseDto;
+import com.abdulmo123.void_post.exception.PostException;
 import com.abdulmo123.void_post.model.Post;
 import com.abdulmo123.void_post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +44,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostResponseDto getPostById(Long id) {
         Post post = postRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Post with id {" + id + "} not found"));
+                .orElseThrow(() -> new PostException("Post with id {" + id + "} not found"));
 
         PostResponseDto dto = new PostResponseDto();
         dto.setId(post.getId());
@@ -81,11 +82,40 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public PostResponseDto updatePost(Long id, CreatePostDto request, String authHeader) {
+        Long authorId = userServiceClient.validate(authHeader);
+
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new PostException("Post with id {" + id + "} not found"));
+
+        post.setTitle(request.getTitle());
+        post.setContent(request.getContent());
+        post.setAuthorId(authorId);
+        post.setLastUpdTs(LocalDateTime.now());
+
+        Post updatedPost = postRepository.save(post);
+
+        PostResponseDto dto = new PostResponseDto();
+        if (authorId.equals(updatedPost.getAuthorId())) {
+            dto.setId(updatedPost.getId());
+            dto.setTitle(updatedPost.getTitle());
+            dto.setContent(updatedPost.getContent());
+            dto.setAuthorId(updatedPost.getAuthorId());
+            dto.setCrtTs(updatedPost.getCrtTs());
+            dto.setLastUpdTs(updatedPost.getLastUpdTs());
+        } else {
+            throw new PostException("You are not authorized to delete this post!");
+        }
+
+        return dto;
+    }
+
+    @Override
     public PostResponseDto deletePost(Long id, String authHeader) {
         Long authorId = userServiceClient.validate(authHeader);
 
         Post post = postRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Post with id {" + id + "} not found"));
+                .orElseThrow(() -> new PostException("Post with id {" + id + "} not found"));
 
         PostResponseDto dto = new PostResponseDto();
         if (authorId.equals(post.getAuthorId())) {
@@ -99,7 +129,7 @@ public class PostServiceImpl implements PostService {
             postRepository.deleteById(id);
             log.info("Post with id {} successfully deleted!", id);
         } else {
-            throw new RuntimeException("You are not authorized to delete this post!");
+            throw new PostException("You are not authorized to delete this post!");
         }
 
         return dto;
