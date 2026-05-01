@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -24,7 +25,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<PostResponseDto> getAllPosts() {
-        List<Post> posts = postRepository.getAllPosts();
+        List<Post> posts = postRepository.findAll();
         return posts.stream()
                 .map(post -> {
                     PostResponseDto postResponseDto = new PostResponseDto();
@@ -37,6 +38,22 @@ public class PostServiceImpl implements PostService {
                     return postResponseDto;
                 })
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public PostResponseDto getPostById(Long id) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Post with id {" + id + "} not found"));
+
+        PostResponseDto dto = new PostResponseDto();
+        dto.setId(post.getId());
+        dto.setTitle(post.getTitle());
+        dto.setContent(post.getContent());
+        dto.setAuthorId(post.getAuthorId());
+        dto.setCrtTs(post.getCrtTs());
+        dto.setLastUpdTs(post.getLastUpdTs());
+
+        return dto;
     }
 
     @Override

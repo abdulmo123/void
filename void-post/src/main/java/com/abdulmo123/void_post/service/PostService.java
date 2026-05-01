@@ -9,5 +9,7 @@ public interface PostService {
 
     List<PostResponseDto> getAllPosts();
 
+    PostResponseDto getPostById(Long id);
+
     PostResponseDto createPost(CreatePostDto request, String authHeader);
 }

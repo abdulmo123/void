@@ -9,8 +9,5 @@ import java.util.List;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
-    @Query(value = """
-            select * from post.posts p
-        """, nativeQuery = true)
-    List<Post> getAllPosts();
+
 }
