@@ -12,4 +12,6 @@ public interface PostService {
     PostResponseDto getPostById(Long id);
 
     PostResponseDto createPost(CreatePostDto request, String authHeader);
+
+    PostResponseDto deletePost(Long id, String authHeader);
 }

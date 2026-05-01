@@ -33,4 +33,11 @@ public class PostController {
             @RequestHeader("Authorization") String authHeader) {
         return ResponseEntity.status(HttpStatus.CREATED).body(postService.createPost(request, authHeader));
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<PostResponseDto> deletePost(
+            @PathVariable("id") Long id,
+            @RequestHeader("Authorization") String authHeader) {
+                return ResponseEntity.status(HttpStatus.OK).body(postService.deletePost(id, authHeader));
+    }
 }

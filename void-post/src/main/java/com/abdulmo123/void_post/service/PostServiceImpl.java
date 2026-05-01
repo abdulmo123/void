@@ -79,4 +79,29 @@ public class PostServiceImpl implements PostService {
 
         return dto;
     }
+
+    @Override
+    public PostResponseDto deletePost(Long id, String authHeader) {
+        Long authorId = userServiceClient.validate(authHeader);
+
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Post with id {" + id + "} not found"));
+
+        PostResponseDto dto = new PostResponseDto();
+        if (authorId.equals(post.getAuthorId())) {
+            dto.setId(post.getId());
+            dto.setTitle(post.getTitle());
+            dto.setContent(post.getContent());
+            dto.setAuthorId(post.getAuthorId());
+            dto.setCrtTs(post.getCrtTs());
+            dto.setLastUpdTs(post.getLastUpdTs());
+
+            postRepository.deleteById(id);
+            log.info("Post with id {} successfully deleted!", id);
+        } else {
+            throw new RuntimeException("You are not authorized to delete this post!");
+        }
+
+        return dto;
+    }
 }
