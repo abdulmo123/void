@@ -3,6 +3,11 @@ server:
 app:
   url: http://localhost:8081
   dummy-email: abdullah2224@gmail.com
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui
 spring:
   application:
     name: void-user
