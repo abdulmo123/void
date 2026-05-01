@@ -26,7 +26,7 @@ public class EmailServiceImpl implements EmailService {
     private final AppProperties appProperties;
 
     @Override
-    public void   sendWelcomeEmail(User user) {
+    public void sendWelcomeEmail(User user) {
         Context context = new Context();
         context.setVariable("username", user.getUsername());
         context.setVariable("email", user.getEmail());

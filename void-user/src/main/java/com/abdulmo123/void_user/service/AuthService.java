@@ -10,4 +10,6 @@ public interface AuthService {
     AuthResponse signup(RegisterRequest registerRequest);
 
     AuthResponse authenticate(LoginRequest loginRequest);
+
+    Long validate(String authHeader);
 }
