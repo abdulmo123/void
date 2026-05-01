@@ -16,4 +16,6 @@ public interface PostService {
     PostResponseDto updatePost(Long id, CreatePostDto request, String authHeader);
 
     PostResponseDto deletePost(Long id, String authHeader);
+
+    List<PostResponseDto> findUserPosts(Long authorId);
 }

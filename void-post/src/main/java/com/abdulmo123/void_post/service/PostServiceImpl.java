@@ -134,4 +134,21 @@ public class PostServiceImpl implements PostService {
 
         return dto;
     }
+
+    @Override
+    public List<PostResponseDto> findUserPosts(Long authorId) {
+        List<Post> posts = postRepository.findPostsByUser(authorId);
+        return posts.stream()
+                .map(post -> {
+                    PostResponseDto postResponseDto = new PostResponseDto();
+                    postResponseDto.setId(post.getId());
+                    postResponseDto.setTitle(post.getTitle());
+                    postResponseDto.setContent(post.getContent());
+                    postResponseDto.setAuthorId(post.getAuthorId());
+                    postResponseDto.setCrtTs(post.getCrtTs());
+                    postResponseDto.setLastUpdTs(post.getLastUpdTs());
+                    return postResponseDto;
+                })
+                .collect(Collectors.toList());
+    }
 }

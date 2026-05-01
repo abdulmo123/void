@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/post")
+@RequestMapping("/api/v1/posts")
 @RequiredArgsConstructor
 public class PostController {
 
@@ -19,12 +19,12 @@ public class PostController {
 
     @GetMapping("/all")
     public ResponseEntity<List<PostResponseDto>> getAllPosts() {
-        return ResponseEntity.ok(postService.getAllPosts());
+        return ResponseEntity.status(HttpStatus.OK).body(postService.getAllPosts());
     }
 
     @GetMapping("find/{id}")
     public ResponseEntity<PostResponseDto> findPostById(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(postService.getPostById(id));
+        return ResponseEntity.status(HttpStatus.OK).body(postService.getPostById(id));
     }
 
     @PostMapping("/create")
@@ -47,5 +47,10 @@ public class PostController {
             @PathVariable("id") Long id,
             @RequestHeader("Authorization") String authHeader) {
                 return ResponseEntity.status(HttpStatus.OK).body(postService.deletePost(id, authHeader));
+    }
+
+    @GetMapping("/user/{authorId}")
+    public ResponseEntity<List<PostResponseDto>> getUserPosts(@PathVariable("authorId") Long authorId) {
+        return ResponseEntity.status(HttpStatus.OK).body(postService.findUserPosts(authorId));
     }
 }
