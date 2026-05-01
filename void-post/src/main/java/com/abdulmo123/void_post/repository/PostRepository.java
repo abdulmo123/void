@@ -15,4 +15,11 @@ public interface PostRepository extends JpaRepository<Post, Long> {
         SELECT * FROM post.posts WHERE author_id = :authorId
     """, nativeQuery = true)
     List<Post> findPostsByUser(@Param("authorId") Long authorId);
+
+    @Query(value = """
+            SELECT * FROM post.posts p
+            WHERE p.title ILIKE '%' || :keyword || '%'
+            OR p.content ILIKE '%' || :keyword || '%'
+    """, nativeQuery = true)
+    List<Post> searchPosts(String keyword);
 }

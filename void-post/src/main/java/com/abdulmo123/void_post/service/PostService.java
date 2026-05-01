@@ -18,4 +18,6 @@ public interface PostService {
     PostResponseDto deletePost(Long id, String authHeader);
 
     List<PostResponseDto> findUserPosts(Long authorId);
+
+    List<PostResponseDto> searchPosts(String keyword);
 }

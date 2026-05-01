@@ -53,4 +53,9 @@ public class PostController {
     public ResponseEntity<List<PostResponseDto>> getUserPosts(@PathVariable("authorId") Long authorId) {
         return ResponseEntity.status(HttpStatus.OK).body(postService.findUserPosts(authorId));
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<PostResponseDto>> searchPosts(@RequestParam("q") String keyword) {
+        return ResponseEntity.status(HttpStatus.OK).body(postService.searchPosts(keyword));
+    }
 }
