@@ -34,7 +34,7 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.CREATED).body(postService.createPost(request, authHeader));
     }
 
-    @PutMapping("/update/{id}")v
+    @PutMapping("/update/{id}")
     public ResponseEntity<PostResponseDto> updatePost(
             @PathVariable("id") Long id,
             @RequestBody CreatePostDto request,

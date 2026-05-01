@@ -3,6 +3,11 @@ server:
 user:
   service:
     url: http://localhost:8081
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui
 spring:
   application:
     name: void-post
