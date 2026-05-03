@@ -1,5 +1,6 @@
 package com.abdulmo123.void_user.controller;
 
+import com.abdulmo123.void_user.dto.UpdateMyProfileDto;
 import com.abdulmo123.void_user.dto.UserMeProfileDto;
 import com.abdulmo123.void_user.dto.UserProfileDto;
 import com.abdulmo123.void_user.service.UserService;
@@ -23,5 +24,12 @@ public class UserController {
     @GetMapping("/me")
     public ResponseEntity<UserMeProfileDto> getMyUserProfile(@RequestHeader("Authorization") String authHeader) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getMyUserProfile(authHeader));
+    }
+
+    @PutMapping("/me")
+    public ResponseEntity<UpdateMyProfileDto> updateMyUserProfile(
+            @RequestHeader("Authorization") String authHeader,
+            @RequestBody UserMeProfileDto userMeProfileDto) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.updateMyUserProfile(authHeader, userMeProfileDto));
     }
 }
