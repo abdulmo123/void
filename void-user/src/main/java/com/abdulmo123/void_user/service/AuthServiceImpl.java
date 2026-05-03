@@ -3,6 +3,7 @@ package com.abdulmo123.void_user.service;
 import com.abdulmo123.void_user.dto.LoginRequest;
 import com.abdulmo123.void_user.dto.AuthResponse;
 import com.abdulmo123.void_user.dto.RegisterRequest;
+import com.abdulmo123.void_user.dto.UserMeProfileDto;
 import com.abdulmo123.void_user.enums.Role;
 import com.abdulmo123.void_user.model.User;
 import com.abdulmo123.void_user.repository.UserRepository;
@@ -70,7 +71,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public Long validate(String authHeader) {
+    public UserMeProfileDto validate(String authHeader) {
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             log.error("Auth header invalid or does not contain Bearer");
             return null;
@@ -84,9 +85,17 @@ public class AuthServiceImpl implements AuthService {
             return null;
         }
 
-        return userRepository.findByUsernameOrEmail(username)
-                .orElseThrow(() -> new RuntimeException("User not found!"))
-                .getId();
+        User user = userRepository.findByUsernameOrEmail(username)
+                .orElseThrow(() -> new RuntimeException("User not found!"));
 
+        UserMeProfileDto dto = new UserMeProfileDto();
+        dto.setId(user.getId());
+        dto.setFirstName(user.getFirstName());
+        dto.setLastName(user.getLastName());
+        dto.setUsername(user.getUsername());
+        dto.setEmail(user.getEmail());
+        dto.setCrtTs(user.getCrtTs());
+
+        return dto;
     }
 }

@@ -3,8 +3,11 @@ package com.abdulmo123.void_user.controller;
 import com.abdulmo123.void_user.dto.LoginRequest;
 import com.abdulmo123.void_user.dto.AuthResponse;
 import com.abdulmo123.void_user.dto.RegisterRequest;
+import com.abdulmo123.void_user.dto.UserMeProfileDto;
+import com.abdulmo123.void_user.model.User;
 import com.abdulmo123.void_user.service.AuthService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +29,7 @@ public class AuthController {
     }
 
     @GetMapping("/validate")
-    public ResponseEntity<Long> validate(@RequestHeader("Authorization") String authHeader) {
-        return ResponseEntity.ok(authService.validate(authHeader));
+    public ResponseEntity<UserMeProfileDto> validate(@RequestHeader("Authorization") String authHeader) {
+        return ResponseEntity.status(HttpStatus.OK).body(authService.validate(authHeader));
     }
 }
