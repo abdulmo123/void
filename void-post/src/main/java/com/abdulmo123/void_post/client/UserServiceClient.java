@@ -1,5 +1,6 @@
 package com.abdulmo123.void_post.client;
 
+import com.abdulmo123.void_post.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -18,17 +19,17 @@ public class UserServiceClient {
     @Value("${user.service.url}")
     private String userServiceUrl;
 
-    public Long validate(String authHeader) {
+    public UserDto validate(String authHeader) {
         try {
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.set("Authorization", authHeader);
             HttpEntity<Void> httpEntity = new HttpEntity<>(httpHeaders);
 
-            ResponseEntity<Long> response = restTemplate.exchange(
+            ResponseEntity<UserDto> response = restTemplate.exchange(
                     userServiceUrl + "/api/v1/auth/validate",
                     HttpMethod.GET,
                     httpEntity,
-                    Long.class
+                    UserDto.class
             );
             return response.getBody();
         } catch (HttpClientErrorException e) {

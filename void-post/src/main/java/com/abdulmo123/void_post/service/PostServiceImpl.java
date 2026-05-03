@@ -3,6 +3,7 @@ package com.abdulmo123.void_post.service;
 import com.abdulmo123.void_post.client.UserServiceClient;
 import com.abdulmo123.void_post.dto.CreatePostDto;
 import com.abdulmo123.void_post.dto.PostResponseDto;
+import com.abdulmo123.void_post.dto.UserDto;
 import com.abdulmo123.void_post.exception.PostException;
 import com.abdulmo123.void_post.model.Post;
 import com.abdulmo123.void_post.repository.PostRepository;
@@ -59,7 +60,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostResponseDto createPost(CreatePostDto request, String authHeader) {
-        Long authorId = userServiceClient.validate(authHeader);
+        UserDto userDto = userServiceClient.validate(authHeader);
+        Long authorId = userDto.getId();
 
         Post post = new Post();
         post.setTitle(request.getTitle());
@@ -83,7 +85,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostResponseDto updatePost(Long id, CreatePostDto request, String authHeader) {
-        Long authorId = userServiceClient.validate(authHeader);
+        UserDto userDto = userServiceClient.validate(authHeader);
+        Long authorId = userDto.getId();
 
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new PostException("Post with id {" + id + "} not found"));
@@ -112,7 +115,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostResponseDto deletePost(Long id, String authHeader) {
-        Long authorId = userServiceClient.validate(authHeader);
+        UserDto userDto = userServiceClient.validate(authHeader);
+        Long authorId = userDto.getId();
 
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new PostException("Post with id {" + id + "} not found"));
