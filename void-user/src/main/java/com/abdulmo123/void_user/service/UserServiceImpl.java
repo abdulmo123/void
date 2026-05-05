@@ -1,6 +1,8 @@
 package com.abdulmo123.void_user.service;
 
 import com.abdulmo123.void_user.UserException;
+import com.abdulmo123.void_user.config.AppConfig;
+import com.abdulmo123.void_user.dto.ChangePasswordRequestDto;
 import com.abdulmo123.void_user.dto.UpdateMyProfileDto;
 import com.abdulmo123.void_user.dto.UserMeProfileDto;
 import com.abdulmo123.void_user.dto.UserProfileDto;
@@ -9,6 +11,7 @@ import com.abdulmo123.void_user.repository.UserRepository;
 import com.abdulmo123.void_user.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -18,6 +21,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserProfileDto getUserProfile(Long id) {
@@ -93,5 +97,28 @@ public class UserServiceImpl implements UserService {
         dto.setToken(jwtUtil.generateToken(savedUser));
 
         return dto;
+    }
+
+    @Override
+    public String updateMyUserPassword(String authHeader, ChangePasswordRequestDto changePasswordRequestDto) {
+        String token = authHeader.substring(7);
+        String username = jwtUtil.extractUsername(token);
+
+        User user = userRepository.findByUsernameOrEmail(username)
+                .orElseThrow(() -> new UserException("User not found!"));
+
+        if (!passwordEncoder.matches(changePasswordRequestDto.getCurrentPassword(), user.getPassword())) {
+            throw new UserException("Current password is incorrect!");
+        }
+
+        // TODO: maybe don't need to do this because I can simply disable whatever form exists on the frontend when both formControl values are not the same
+        /*if (!changePasswordRequestDto.getNewPassword().equals(changePasswordRequestDto.getConfirmNewPassword())) {
+            throw new UserException("New passwords do not match!");
+        }*/
+
+        user.setPassword(passwordEncoder.encode(changePasswordRequestDto.getNewPassword()));
+        userRepository.save(user);
+
+        return "Password updated successfully for user: " + user.getUsername();
     }
 }

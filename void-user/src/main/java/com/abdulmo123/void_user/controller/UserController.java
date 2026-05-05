@@ -1,5 +1,6 @@
 package com.abdulmo123.void_user.controller;
 
+import com.abdulmo123.void_user.dto.ChangePasswordRequestDto;
 import com.abdulmo123.void_user.dto.UpdateMyProfileDto;
 import com.abdulmo123.void_user.dto.UserMeProfileDto;
 import com.abdulmo123.void_user.dto.UserProfileDto;
@@ -31,5 +32,13 @@ public class UserController {
             @RequestHeader("Authorization") String authHeader,
             @RequestBody UserMeProfileDto userMeProfileDto) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.updateMyUserProfile(authHeader, userMeProfileDto));
+    }
+
+    @PutMapping("/me/password")
+    public ResponseEntity<String> updateMyUserPassword(
+            @RequestHeader("Authorization") String authHeader,
+            @RequestBody ChangePasswordRequestDto changePasswordRequestDto) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.updateMyUserPassword(authHeader, changePasswordRequestDto));
+
     }
 }

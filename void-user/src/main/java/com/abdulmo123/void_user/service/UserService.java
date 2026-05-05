@@ -1,5 +1,6 @@
 package com.abdulmo123.void_user.service;
 
+import com.abdulmo123.void_user.dto.ChangePasswordRequestDto;
 import com.abdulmo123.void_user.dto.UpdateMyProfileDto;
 import com.abdulmo123.void_user.dto.UserMeProfileDto;
 import com.abdulmo123.void_user.dto.UserProfileDto;
@@ -10,4 +11,6 @@ public interface UserService {
     UserMeProfileDto getMyUserProfile(String authHeader);
 
     UpdateMyProfileDto updateMyUserProfile(String authHeader, UserMeProfileDto userMeProfileDto);
+
+    String updateMyUserPassword(String authHeader, ChangePasswordRequestDto changePasswordRequestDto);
 }
