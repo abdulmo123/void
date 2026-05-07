@@ -12,6 +12,12 @@ import java.util.List;
 public interface PostRepository extends JpaRepository<Post, Long> {
 
     @Query(value = """
+        SELECT * FROM post.posts p 
+        order by p.crt_ts desc
+    """, nativeQuery = true)
+    List<Post> findAllPostsOrderedByCrtTs();
+
+    @Query(value = """
         SELECT * FROM post.posts WHERE author_id = :authorId
     """, nativeQuery = true)
     List<Post> findPostsByUser(@Param("authorId") Long authorId);
