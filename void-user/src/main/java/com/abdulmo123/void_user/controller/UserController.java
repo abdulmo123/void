@@ -39,6 +39,5 @@ public class UserController {
             @RequestHeader("Authorization") String authHeader,
             @RequestBody ChangePasswordRequestDto changePasswordRequestDto) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.updateMyUserPassword(authHeader, changePasswordRequestDto));
-
     }
 }
