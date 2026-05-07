@@ -11,8 +11,8 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useNavigate } from "react-router-dom";
-import type { AuthResponse } from "../api/types";
-import { login } from "../api/api";
+import type { AuthResponse } from "../types/user-type";
+import { login } from "../api/user-api";
 
 export default function LoginPage() {
     const navigate = useNavigate();
@@ -40,7 +40,7 @@ export default function LoginPage() {
     };
 
     return (
-        <Container size={460} py={80}>
+        <Container size={600} py={80}>
             <Text
                 style={{
                     fontFamily: "Georgia, serif",

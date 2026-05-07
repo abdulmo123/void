@@ -11,8 +11,8 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useNavigate } from "react-router-dom";
-import { signUp } from "../api/api";
-import type { AuthResponse } from "../api/types";
+import { signUp } from "../api/user-api";
+import type { AuthResponse } from "../types/user-type";
 
 export default function SignupPage() {
   const navigate = useNavigate();
@@ -49,7 +49,7 @@ export default function SignupPage() {
   };
 
   return (
-    <Container size={460} py={80}>
+    <Container size={600} py={50}>
       <Text
         style={{
           fontFamily: "Georgia, serif",
@@ -73,7 +73,7 @@ export default function SignupPage() {
           onClick={() => navigate("/login")}
           style={{ color: dark ? "#f5f4f0" : "#0a0a0a", fontSize: "12px" }}
         >
-          Login
+          LOG IN
         </Anchor>
       </Text>
 
