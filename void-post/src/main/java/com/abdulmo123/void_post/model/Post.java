@@ -30,6 +30,10 @@ public class Post {
     private Long authorId;
 
     @Basic
+    @Column(nullable = false)
+    private String authorUsername;
+
+    @Basic
     @Column
     private LocalDateTime crtTs;
 

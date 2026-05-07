@@ -12,9 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -27,7 +25,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<PostResponseDto> getAllPosts() {
-        List<Post> posts = postRepository.findAll();
+        List<Post> posts = postRepository.findAllPostsOrderedByCrtTs();
         return posts.stream()
                 .map(post -> {
                     PostResponseDto postResponseDto = new PostResponseDto();
@@ -35,6 +33,7 @@ public class PostServiceImpl implements PostService {
                     postResponseDto.setTitle(post.getTitle());
                     postResponseDto.setContent(post.getContent());
                     postResponseDto.setAuthorId(post.getAuthorId());
+                    postResponseDto.setAuthorUsername(post.getAuthorUsername());
                     postResponseDto.setCrtTs(post.getCrtTs());
                     postResponseDto.setLastUpdTs(post.getLastUpdTs());
                     return postResponseDto;
@@ -52,6 +51,7 @@ public class PostServiceImpl implements PostService {
         dto.setTitle(post.getTitle());
         dto.setContent(post.getContent());
         dto.setAuthorId(post.getAuthorId());
+        dto.setAuthorUsername(post.getAuthorUsername());
         dto.setCrtTs(post.getCrtTs());
         dto.setLastUpdTs(post.getLastUpdTs());
 
@@ -67,6 +67,7 @@ public class PostServiceImpl implements PostService {
         post.setTitle(request.getTitle());
         post.setContent(request.getContent());
         post.setAuthorId(authorId);
+        post.setAuthorUsername(userDto.getUsername());
         post.setCrtTs(LocalDateTime.now());
         post.setLastUpdTs(LocalDateTime.now());
 
@@ -77,6 +78,7 @@ public class PostServiceImpl implements PostService {
         dto.setTitle(savedPost.getTitle());
         dto.setContent(savedPost.getContent());
         dto.setAuthorId(authorId);
+        dto.setAuthorUsername(savedPost.getAuthorUsername());
         dto.setCrtTs(savedPost.getCrtTs());
         dto.setLastUpdTs(savedPost.getLastUpdTs());
 
@@ -94,6 +96,7 @@ public class PostServiceImpl implements PostService {
         post.setTitle(request.getTitle());
         post.setContent(request.getContent());
         post.setAuthorId(authorId);
+        post.setAuthorUsername(userDto.getUsername());
         post.setLastUpdTs(LocalDateTime.now());
 
         Post updatedPost = postRepository.save(post);
@@ -104,6 +107,7 @@ public class PostServiceImpl implements PostService {
             dto.setTitle(updatedPost.getTitle());
             dto.setContent(updatedPost.getContent());
             dto.setAuthorId(updatedPost.getAuthorId());
+            dto.setAuthorUsername(updatedPost.getAuthorUsername());
             dto.setCrtTs(updatedPost.getCrtTs());
             dto.setLastUpdTs(updatedPost.getLastUpdTs());
         } else {
@@ -127,6 +131,7 @@ public class PostServiceImpl implements PostService {
             dto.setTitle(post.getTitle());
             dto.setContent(post.getContent());
             dto.setAuthorId(post.getAuthorId());
+            dto.setAuthorUsername(post.getAuthorUsername());
             dto.setCrtTs(post.getCrtTs());
             dto.setLastUpdTs(post.getLastUpdTs());
 
