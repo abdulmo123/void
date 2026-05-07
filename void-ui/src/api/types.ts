@@ -8,4 +8,9 @@ export type RegisterRequest = {
 
 export type AuthResponse = {
     token: string;
-}
+};
+
+export type LoginRequest = {
+    username: string;
+    password: string;
+};
