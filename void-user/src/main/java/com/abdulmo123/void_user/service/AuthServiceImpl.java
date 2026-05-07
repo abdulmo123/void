@@ -1,7 +1,7 @@
 package com.abdulmo123.void_user.service;
 
 import com.abdulmo123.void_user.dto.LoginRequest;
-import com.abdulmo123.void_user.dto.AuthResponse;
+import com.abdulmo123.void_user.dto.AuthResponseDto;
 import com.abdulmo123.void_user.dto.RegisterRequest;
 import com.abdulmo123.void_user.dto.UserMeProfileDto;
 import com.abdulmo123.void_user.enums.Role;
@@ -32,7 +32,7 @@ public class AuthServiceImpl implements AuthService {
     private final UserDetailsService userDetailsService;
 
     @Override
-    public AuthResponse signup(RegisterRequest registerRequest) {
+    public AuthResponseDto signup(RegisterRequest registerRequest) {
         User user = User.builder()
                 .firstName(registerRequest.getFirstName())
                 .lastName(registerRequest.getLastName())
@@ -48,13 +48,15 @@ public class AuthServiceImpl implements AuthService {
         String jwtToken = jwtUtil.generateToken(user);
         emailService.sendWelcomeEmail(user);
 
-        return AuthResponse.builder()
+        return AuthResponseDto.builder()
+                .id(user.getId())
+                .username(user.getUsername())
                 .token(jwtToken)
                 .build();
     }
 
     @Override
-    public AuthResponse authenticate(LoginRequest loginRequest) {
+    public AuthResponseDto authenticate(LoginRequest loginRequest) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getUsername(),
@@ -65,7 +67,9 @@ public class AuthServiceImpl implements AuthService {
         User user = userRepository.findByUsernameOrEmail(loginRequest.getUsername())
                 .orElseThrow();
         String jwtToken = jwtUtil.generateToken(user);
-        return AuthResponse.builder()
+        return AuthResponseDto.builder()
+                .id(user.getId())
+                .username(user.getUsername())
                 .token(jwtToken)
                 .build();
     }

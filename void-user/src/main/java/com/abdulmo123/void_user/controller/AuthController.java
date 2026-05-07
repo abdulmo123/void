@@ -1,10 +1,9 @@
 package com.abdulmo123.void_user.controller;
 
 import com.abdulmo123.void_user.dto.LoginRequest;
-import com.abdulmo123.void_user.dto.AuthResponse;
+import com.abdulmo123.void_user.dto.AuthResponseDto;
 import com.abdulmo123.void_user.dto.RegisterRequest;
 import com.abdulmo123.void_user.dto.UserMeProfileDto;
-import com.abdulmo123.void_user.model.User;
 import com.abdulmo123.void_user.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,12 +18,12 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthResponse> signup(@RequestBody RegisterRequest registerRequest) {
+    public ResponseEntity<AuthResponseDto> signup(@RequestBody RegisterRequest registerRequest) {
         return ResponseEntity.ok(authService.signup(registerRequest));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> register(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<AuthResponseDto> register(@RequestBody LoginRequest loginRequest) {
         return ResponseEntity.ok(authService.authenticate(loginRequest));
     }
 
