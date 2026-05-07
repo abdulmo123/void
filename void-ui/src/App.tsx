@@ -5,6 +5,7 @@ import { theme } from './theme';
 import Navbar from './components/Navbar';
 import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
+import HomePage from './pages/HomePage';
 
 const colorSchemeManager = localStorageColorSchemeManager({ key: 'void-color-scheme' });
 
@@ -15,6 +16,8 @@ export default function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<LoginPage />}></Route>
+          <Route path="/home" element={<HomePage />}></Route>
+          <Route path="/login" element={<LoginPage />}></Route>
           <Route path="/signup" element={<SignupPage />}></Route>
         </Routes>
       </BrowserRouter>
