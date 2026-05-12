@@ -11,10 +11,12 @@ import {
     Divider,
     ActionIcon,
     useMantineColorScheme,
+    TextInput,
 } from "@mantine/core";
-import { IconHeart, IconMessageCircle, IconShare } from "@tabler/icons-react";
+import { IconArrowRight, IconHeart, IconMessageCircle, IconSearch, IconShare } from "@tabler/icons-react";
 import { getAllPosts } from "../api/post-api";
 import type { PostResponse } from "../types/post-type";
+import { theme } from "../theme";
 
 // Mock posts for now — replace with real API call later
 const posts = await getAllPosts();
@@ -112,6 +114,19 @@ export default function HomePage() {
     return (
         <div style={{ backgroundColor: dark ? "#0a0a0a" : "#f5f4f0", minHeight: "100vh", paddingTop: "40px", paddingBottom: "80px" }}>
             <Container size="lg">
+                <TextInput
+                    radius="md"
+                    size="md"
+                    mb={30}
+                    placeholder="Search post"
+                    rightSectionWidth={42}
+                    leftSection={<IconSearch size={18} stroke={1.5} />}
+                    rightSection={
+                        <ActionIcon size={32} radius="xl" color={theme.primaryColor} variant="filled">
+                            <IconArrowRight size={18} stroke={1.5} />
+                        </ActionIcon>
+                    }
+                />
                 <Stack gap="lg">
 
                     <div>
