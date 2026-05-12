@@ -7,6 +7,8 @@ export type RegisterRequest = {
 };
 
 export type AuthResponse = {
+    id: number;
+    username: string;
     token: string;
 };
 
