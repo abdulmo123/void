@@ -14,9 +14,10 @@ import {
     TextInput,
 } from "@mantine/core";
 import { IconArrowRight, IconHeart, IconMessageCircle, IconSearch, IconShare } from "@tabler/icons-react";
-import { getAllPosts } from "../api/post-api";
-import type { PostResponse } from "../types/post-type";
+import { createPost, getAllPosts } from "../api/post-api";
+import type { CreatePost, PostResponse } from "../types/post-type";
 import { theme } from "../theme";
+import { useAuth } from "../context/AuthContext";
 
 // Mock posts for now — replace with real API call later
 const posts = await getAllPosts();
@@ -89,6 +90,7 @@ export default function HomePage() {
     const [postTitle, setPostTitle] = useState("");
     const [posts, setPosts] = useState<PostResponse[]>([]);
     const [loading, setLoading] = useState(true);
+    const { token } = useAuth();
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -104,11 +106,29 @@ export default function HomePage() {
         fetchPosts();
     }, []);
 
-    const handlePost = () => {
-        if (!postContent.trim()) return;
-        console.log("Post submitted:", { postTitle, postContent });
-        setPostTitle("");
-        setPostContent("");
+    const handlePost = async () => {
+        try {
+            if (!postContent.trim()) return;
+
+            if (!token) {
+                alert("No token found! Re-login to generate a new token!");
+                return;
+            }
+
+            const response: CreatePost = await createPost(token, {
+                title: postTitle,
+                content: postContent
+            });
+
+            console.log('response ... ', response);
+            console.log("Post submitted:", { postTitle, postContent });
+
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setPostTitle("");
+            setPostContent("");
+        }
     };
 
     return (
