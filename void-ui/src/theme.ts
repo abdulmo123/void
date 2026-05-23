@@ -23,7 +23,6 @@ export const theme = createTheme({
   colors: {
     warmWhite,
   },
-  colorScheme: 'light',
   defaultRadius: 'sm',
   black: '#0a0a0a',
   white: '#f5f4f0',
