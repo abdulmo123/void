@@ -7,3 +7,8 @@ export type PostResponse = {
     crtTs: Date;
     lastUpdTs: Date;
 };
+
+export type CreatePost = {
+    title: string;
+    content: string;
+}
